@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Buffer } from 'buffer';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Professionaledit from './Professionaledit';
 
 const Professionaldetails = () => {
     var [selected,setSelected]=useState();
@@ -41,7 +42,11 @@ const Professionaldetails = () => {
                             <TableCell >Experience</TableCell>
                             <TableCell >Contact</TableCell>
                             <TableCell >Email</TableCell>
+                            <TableCell>District</TableCell>
+                            <TableCell>State</TableCell>
+                            <TableCell>Linkedin</TableCell>
                             <TableCell >image</TableCell>
+                            
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -55,6 +60,9 @@ const Professionaldetails = () => {
                                     <TableCell >{row.Experience}</TableCell>
                                     <TableCell >{row.Contact}</TableCell>
                                     <TableCell >{row.Email}</TableCell>
+                                    <TableCell>{row.District}</TableCell>
+                                     <TableCell>{row.State}</TableCell>
+                                     <TableCell>{row.Linkedin}</TableCell>
                                     <TableCell><img src={`data:image/jpeg;base64,${Buffer.from(row.image1.data).toString('base64')}`} width="50" height="50" alt="error" /></TableCell>
                                     <TableCell><EditIcon onClick={()=>updateValues(row)}/></TableCell>
                                 </TableRow>
@@ -68,7 +76,7 @@ const Professionaldetails = () => {
             </TableContainer>
         </div>
         if(update){
-            result=1
+            result=<Professionaledit data={selected} method='put'  />
             
         }
         return(result)

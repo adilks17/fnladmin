@@ -9,7 +9,10 @@ const Professional = () => {
     "Workinfo":'',
     "Experience":'',
     "Contact":'',
-    "Email":''
+    "Email":'',
+    'District':'',
+    'State':'',
+    'Linkedin':''
   });
 
   var[selectedImage,setSelectedImage]=useState(null);
@@ -30,9 +33,12 @@ const saveData=()=>{
   formdata.append('Pid',inputs.Pid);
   formdata.append('Name',inputs.Name);
   formdata.append('Workinfo',inputs.Workinfo);
-  formdata.append('experience',inputs.Experience);
+  formdata.append('Experience',inputs.Experience);
   formdata.append('Contact',inputs.Contact);
   formdata.append('Email',inputs.Email);
+  formdata.append('District',inputs.District);
+  formdata.append('State',inputs.State);
+  formdata.append('Linkedin',inputs.Linkedin);
   formdata.append('image1',selectedImage);
 
   fetch("http://localhost:3005/newProfessional",{
@@ -56,6 +62,9 @@ const saveData=()=>{
       <TextField id="outlined-basic" label="Experience" variant="outlined" name='Experience' value={inputs.Experience} onChange={inputHandler} /><br></br><br></br>
       <TextField id="outlined-basic" label="Contact" variant="outlined" name='Contact' value={inputs.Contact} onChange={inputHandler} /><br></br><br></br>
       <TextField id="outlined-basic" label="Email" variant="outlined" name='Email' value={inputs.Email} onChange={inputHandler} /><br></br><br></br>
+      <TextField id="outlined-basic" label="District" variant="outlined" name='District' value={inputs.District} onChange={inputHandler} /><br></br><br></br>
+      <TextField id="outlined-basic" label="State" variant="outlined" name='State' value={inputs.State} onChange={inputHandler} /><br></br><br></br>
+      <TextField id="outlined-basic" label="Linkedin" variant="outlined" name='Linkedin' value={inputs.Linkedin} onChange={inputHandler} /><br></br><br></br>
       <label htmlFor="">Choose file to upload</label>
         <input type="file" name="image1" id=""  onChange={handleImage}/> <br /><br />
         <Button variant="contained"onClick={saveData}>Submit</Button>

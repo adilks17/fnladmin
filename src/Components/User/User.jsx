@@ -1,18 +1,31 @@
-import { Button, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import { Button, Select, TextField,MenuItem, InputLabel, FormControl } from '@mui/material'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
 
 const User = () => {
+  var [college, setCollege] = useState([]);
   var[inputs, setInputs]= useState({
-    "Uid":'',
+    "userId":'',
     "Name":'',
     "Email":'',
     "Address":'',
     "Phone":'',
     "Rollno":'',
     "College":'',
+    "Username":'',
+    "Password":'',
 
   });
+  useEffect(()=>{
+    axios.get("http://localhost:3005/view")
+    .then((response) => {
+              setCollege(response.data)
+               console.log(response.data)
+        
+    })
+    .catch(err => console.log(err))
+   },[])
 
   var[selectedImage,setSelectedImage]=useState(null);
     const inputHandler = (event) => {
@@ -29,13 +42,15 @@ const handleImage=(event)=>{
 
 const saveData=()=>{
   const formdata=new FormData();
-  formdata.append('Uid',inputs.Uid);
+  formdata.append('userId',inputs.userId);
   formdata.append('Name',inputs.Name);
   formdata.append('Email',inputs.Email);
   formdata.append('Address',inputs.Address);
   formdata.append('Phone',inputs.Phone);
   formdata.append('Rollno',inputs.Rollno);
   formdata.append('College',inputs.College);
+  formdata.append('Username',inputs.Username);
+  formdata.append('Password',inputs.Password);
   formdata.append('image1',selectedImage);
 
   fetch("http://localhost:3005/newuser",{
@@ -56,12 +71,31 @@ const saveData=()=>{
   return (
     <div>
       <h3>USER ADD</h3> <br /> 
-      <TextField id="outlined-basic" label="Uid" name='Uid' type="number" variant="outlined" value={inputs.Uid} onChange={inputHandler}  /> <br /> <br /> 
+      <TextField id="outlined-basic" label="userId" name='userId' type="number" variant="outlined" value={inputs.userId} onChange={inputHandler}  /> <br /> <br /> 
       <TextField id="outlined-basic" label="Name" name='Name' variant="outlined" value={inputs.Name} onChange={inputHandler} /> <br /> <br /> 
       <TextField id="outlined-basic" label="Phone" name='Phone' type="number" variant="outlined"  value={inputs.Phone} onChange={inputHandler} /> <br /> <br />  
         <TextField id="outlined-basic" label="Email" name='Email' type="email" variant="outlined" value={inputs.Email} onChange={inputHandler} /> <br /> <br /> 
         <TextField id="outlined-basic" label="Rollno" name='Rollno' variant="outlined" value={inputs.Rollno} onChange={inputHandler} /> <br /> <br /> 
-        <TextField id="outlined-basic" label="College" name='College' variant="outlined" value={inputs.College} onChange={inputHandler} /> <br /> <br /> 
+  <FormControl sx={{ width: 300 }}>
+        <InputLabel id="college-select">Age</InputLabel>
+        <Select
+  labelId="college-select"
+  label="College"
+  name='College'
+  value={inputs.College}
+  onChange={inputHandler}
+>
+  {college.map((value, index) => (
+    <MenuItem key={index} value={value.Name}>
+      {value.Name}
+    </MenuItem>
+  ))}
+</Select>
+
+      </FormControl> 
+       <br />
+       <br />
+       
         <TextField
           id="outlined-multiline-static"
           label="Address"
@@ -69,6 +103,8 @@ const saveData=()=>{
           multiline
           rows={4}
           value={inputs.Address} onChange={inputHandler} /> <br /> <br /> 
+           <TextField id="outlined-basic" label="Username" name='Username' variant="outlined" value={inputs.Username} onChange={inputHandler} /> <br /> <br />
+           <TextField id="outlined-basic" label="Password" name='Password'type='password' variant="outlined" value={inputs.Password} onChange={inputHandler} /> <br /> <br />
         <label htmlFor="">Choose ID card image to upload</label>
         <input type="file" name="Image1" id="" onChange={handleImage} /> <br /><br />
         <Button variant="contained"onClick={saveData}>Submit</Button>

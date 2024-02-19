@@ -34,7 +34,7 @@ const ResponsiveNavbar = ({ isLoggedIn, onLogout }) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {['Home', 'About', 'College','Professional','User','Heve', 'Contact'].map((text, index) => (
+        {['Home', 'About', 'College','Professional','User','Heve', 'Contact','Movies','Books'].map((text, index) => (
           <ListItem button key={text} component={Link} to={`/${text.toLowerCase()}`}>
             <ListItemText primary={text} />
           </ListItem>

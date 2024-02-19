@@ -35,14 +35,16 @@ const Userdetails = () => {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Uid</TableCell>
+                            <TableCell>userId</TableCell>
                             <TableCell >Name</TableCell>
                             <TableCell >Phone</TableCell>
                             <TableCell >Email</TableCell>
                             <TableCell>Rollno</TableCell>
                             <TableCell>College</TableCell>
                             <TableCell>Address</TableCell>
-                            <TableCell >image</TableCell>
+                            <TableCell >Image</TableCell>
+                            <TableCell>Username</TableCell>
+                            <TableCell>Password</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -50,7 +52,7 @@ const Userdetails = () => {
                             return (
                             
                                 <TableRow key={pos} >
-                                    <TableCell >{row.Uid}</TableCell>
+                                    <TableCell >{row.userId}</TableCell>
                                     <TableCell >{row.Name}</TableCell>
                                     <TableCell>{row.Phone}</TableCell>
                                     <TableCell >{row.Email}</TableCell>
@@ -60,6 +62,8 @@ const Userdetails = () => {
                                     <TableCell>
                                         <img src={`data:image/jpeg;base64,${Buffer.from(row.image1.data).toString('base64')}`} width="50" height="50" alt='Error' />   
                                     </TableCell>
+                                    <TableCell>{row.Username}</TableCell>
+                                    <TableCell>{row.Password}</TableCell>
                                     <TableCell><EditIcon onClick={()=>updateValues(row)}/></TableCell>
                                 </TableRow>
                             

@@ -15,6 +15,8 @@ import Userdetails from './Components/User/Userdetails';
 import Heve from './Components/Heve/Heve';
 import Dcollege from './Components/College/Dcollege';
 import Login from './Components/Login/Login';
+import Movies from './Components/Movies/Movies';
+import Books from './Components/Books/Books';
 
 
 const App = () => {
@@ -54,6 +56,9 @@ const App = () => {
             <Route path="/adduser" element={<User />} />
             <Route path="/user" element={<Userdetails />} />
             <Route path="/d" element={<Dcollege />} />
+            <Route path='/movies' element={<Movies/>}/>
+            <Route path='/books' element={<Books/>}/>
+
           </>
         ) : (
           // Redirect to login when not logged in

@@ -1,34 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'; 
+import React, { useState} from 'react';
 import { TextField } from '@mui/material';
 import { Buffer } from 'buffer';
+import { useNavigate } from 'react-router-dom';
 
 const Cedit = (props) => {
+  const navigate = useNavigate();
     var[inputs,setInputs]=useState(props.data)
     const [selectedImage, setSelectedImage] = useState(null);
-    //  useEffect(() => {
-    //       // Fetch existing data including the image URL
-    //       axios.get("http://localhost:3005/view")
-    //         .then(response => {
-    //           setFormData(response.data);
-    //         })
-    //         .catch(error => {
-    //           console.error('Error fetching data: ', error);
-    //         });
-    //     }, []);
-
-        // const [formData, setFormData] = useState({
-        //     Cid:'',
-        //     Name:'',
-        //     University:'',
-        //     Address:'',
-        //     Phone:'',
-        //     Email:'',
-        //     AffiliationNumber:'',
-        //     // other form fields
-        //     image: '', // Assuming this holds the image URL
-        //   });
-
           const handleInputChange = (e) => {
             const { name, value } = e.target;
             setInputs({ ...inputs, [name]: value });
@@ -40,42 +18,31 @@ const Cedit = (props) => {
           };
           const handleSubmit = async (e) => {
             e.preventDefault();
-        
-            const formDataToSend = new FormData();
-            formDataToSend.append('Cid',inputs.Cid);
-            formDataToSend.append('Name',inputs.Name);
-            formDataToSend.append('University',inputs.University);
-            formDataToSend.append('Address',inputs.Address);
-            formDataToSend.append('Phone',inputs.Phone);
-            formDataToSend.append('Email',inputs.Email);
-            formDataToSend.append('AffiliationNumber',inputs.AffiliationNumber);
-            // append other form fields if any
-        
-            if (selectedImage) {
-              formDataToSend.append('image1', selectedImage);
-            }
-            else{
-              formDataToSend.append('image1',inputs.image1);
-            }
-        
-            try {
-              const response = await axios.put("http://localhost:3005/edit/", formDataToSend, {
-                headers: {
-                  'Content-Type': 'multipart/form-data',
-                },
-              });
-        
-              console.log('Data updated:', response.data);
-              // Optionally handle success
-            } catch (error) {
-              console.error('Error updating data: ', error);
-              // Optionally handle error
-            }
-          };
 
+            const formdata = new FormData();
+        formdata.append('Cid',inputs.Cid);
+        formdata.append('Name',inputs.Name);
+        formdata.append('University',inputs.University);
+        formdata.append('Address',inputs.Address);
+        formdata.append('Phone',inputs.Phone);
+        formdata.append('Email',inputs.Email);
+        formdata.append('AffiliationNumber',inputs.AffiliationNumber);
+        formdata.append('image1', selectedImage);
       
+        fetch(`http://localhost:3005/editcollege/${inputs._id}`,
+            { method: 'put', body: formdata, })
+            .then((response) => response.json())
+            .then((data) => {
+                alert("record saved")
+            })
+            .catch((err) => {
+                console.log("error", err)
+            })
 
-  return (
+        navigate('/college')
+
+    }
+ return (
     <form onSubmit={handleSubmit}>
     <TextField id="outlined-basic" label="Cid" type="number" variant="outlined" name='Cid' value={inputs.Cid} onChange={handleInputChange}  /> <br /> <br /> 
  <TextField id="outlined-basic" label="Name" variant="outlined"value={inputs.Name} name='Name' onChange={handleInputChange} /> <br /> <br /> 
