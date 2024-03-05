@@ -17,6 +17,7 @@ import Dcollege from './Components/College/Dcollege';
 import Login from './Components/Login/Login';
 import Movies from './Components/Movies/Movies';
 import Books from './Components/Books/Books';
+import Appointment from './Components/Pages/Appointment';
 
 
 const App = () => {
@@ -58,6 +59,7 @@ const App = () => {
             <Route path="/d" element={<Dcollege />} />
             <Route path='/movies' element={<Movies/>}/>
             <Route path='/books' element={<Books/>}/>
+            <Route path='/appointment' element={<Appointment/>}/>
 
           </>
         ) : (

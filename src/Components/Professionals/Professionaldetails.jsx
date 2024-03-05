@@ -5,6 +5,7 @@ import { Buffer } from 'buffer';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Professionaledit from './Professionaledit';
+import ReceiverChatWindow from './ReceiverChatWindow';
 
 const Professionaldetails = () => {
     var [selected,setSelected]=useState();
@@ -74,6 +75,8 @@ const Professionaldetails = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            <ReceiverChatWindow    userId={'athul'} Pid={'1'}/>
         </div>
         if(update){
             result=<Professionaledit data={selected} method='put'  />
